@@ -9,13 +9,13 @@ const initialState = {
 };
 
 export const productFetch = createAsyncThunk("allproducts", async () => {
-  const response = await fetch(`${baseURL}/product/all`);
+  const response = await fetch(`http://${baseURL}/product/all`);
   return response.json();
 });
 
 export const productFetchById = createAsyncThunk("getproduct", async (id) => {
   const token = localStorage.getItem('token')
-  const response = await fetch(`${baseURL}/product/${id}`,{
+  const response = await fetch(`http://${baseURL}/product/${id}`,{
     headers: {
         'Authorization': `Bearer ${token}`
       },
