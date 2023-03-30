@@ -6,7 +6,7 @@ import { removeItem } from "../../redux/cart/cartSlice";
 function SmallCard(props) {
   const dispatch = useDispatch();
   const handleCartRemove = () =>{
-    toast.error("Remove product"+ props.productName)
+    toast.error("Remove product "+ props.productName)
     dispatch(removeItem(props.id))
   }
   return (

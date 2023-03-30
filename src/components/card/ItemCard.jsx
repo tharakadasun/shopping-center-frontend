@@ -1,14 +1,12 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import { addItem } from "../../redux/cart/cartSlice";
 
 function ItemCard(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleAddToCart = () =>{
-    toast.success("Add to cart"+" "+ props.productName+" successfully")
     dispatch(addItem({...props}))
   }
   const handleView = () =>{
@@ -28,7 +26,7 @@ function ItemCard(props) {
 
             <div className="d-flex justify-content-between mb-3">
               <h5 className="mb-0">{props.productName}</h5>
-              <h5 className="text-dark mb-0">$999</h5>
+              <h5 className="text-dark mb-0">{props.perUnitPrice}</h5>
             </div>
             <div className="d-flex flex-row mb-1">
               <button onClick={handleAddToCart} type="button" className="btn btn-primary flex-fill" data-mdb-ripple-color="dark">
