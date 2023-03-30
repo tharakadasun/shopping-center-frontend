@@ -13,7 +13,7 @@ const initialState = {
 };
 
 export const signUpUser = createAsyncThunk("signupuser", async (body) => {
-  const response = await fetch(`${baseURL}/auth/register`, {
+  const response = await fetch(`http://${baseURL}/auth/register`, {
     method: "post",
     headers: {
       "Content-Type": "application/json",
@@ -23,7 +23,7 @@ export const signUpUser = createAsyncThunk("signupuser", async (body) => {
   return await response.json();
 });
 export const signInUser = createAsyncThunk("signinuser", async (body) => {
-  const response = await fetch(`${baseURL}/auth/authenticate`, {
+  const response = await fetch(`http://${baseURL}/auth/authenticate`, {
     method: "post",
     headers: {
       "Content-Type": "application/json",
@@ -34,7 +34,7 @@ export const signInUser = createAsyncThunk("signinuser", async (body) => {
 });
 
 export const logoutUser = createAsyncThunk("userlogout",async ()=>{
-    const resposne = await fetch(`${baseURL}/auth/logout`,{
+    const resposne = await fetch(`http://${baseURL}/auth/logout`,{
         method: "post",
     })
     return await resposne.json();
