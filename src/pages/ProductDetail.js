@@ -5,6 +5,7 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 
 import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
+import { addItems } from "../redux/cart/cartSlice";
 function isTokenExpired(token) {
   const decodedToken = jwt_decode(token);
   const expirationTime = decodedToken.exp * 1000; // Convert to milliseconds
