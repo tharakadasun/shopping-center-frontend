@@ -5,17 +5,48 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 
 import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
-import { addItems } from "../redux/cart/cartSlice";
+import { addItem, addItems } from "../redux/cart/cartSlice";
+import { createOrder } from "../redux/order/OrderSlice";
+import { toast } from "react-toastify";
 function isTokenExpired(token) {
   const decodedToken = jwt_decode(token);
   const expirationTime = decodedToken.exp * 1000; // Convert to milliseconds
   const currentTime = new Date().getTime();
   return expirationTime < currentTime;
 }
+
 function ProductDetail() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { product } = useSelector((state) => state.products);
+
+  const handleCart = () =>{
+    dispatch(addItem({...product}))
+  }
+
+  const handleBuyItsNow =() =>{
+    const local_token = localStorage.getItem('token')
+    console.log('token:- ',local_token);
+    let cart_items = [
+      {
+        productId: product.id,
+        quantity:1
+      }
+    ];
+    const cartItemBody = {
+      orderItems: cart_items
+    }
+    if(local_token != null){
+      if(product != null){
+        dispatch(createOrder(cartItemBody))
+        navigate("/checkout")
+      }else{
+        toast.error("Please add items")
+      }
+    }else{
+      toast.error("Please Login !")
+    }
+  }
   useEffect(() => {
     const token_local = localStorage.getItem("token");
     console.log(token_local);
@@ -58,6 +89,7 @@ function ProductDetail() {
                       <small className="text-success"></small>
                     </h2>
                     <button
+                    onClick={handleCart}
                       className="btn btn-dark btn-rounded"
                       data-toggle="tooltip"
                       title=""
@@ -65,7 +97,7 @@ function ProductDetail() {
                     >
                       <AiOutlineShoppingCart />
                     </button>
-                    <button className="btn btn-primary btn-rounded ml-2">
+                    <button className="btn btn-primary btn-rounded ml-2" onClick={handleBuyItsNow}>
                       Buy Now
                     </button>
                     <h3 className="box-title mt-5">Key Highlights</h3>
