@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { logout, logoutUser } from "../../redux/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 import {AiOutlineShoppingCart} from 'react-icons/ai';
+import { addItems } from "../../redux/cart/cartSlice";
 
 function isTokenExpired(token) {
   const decodedToken = jwt_decode(token);
@@ -16,6 +17,10 @@ function isTokenExpired(token) {
 function Header({ userLogin, setUserLogin }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(()=>{
+    dispatch(addItems());
+  },[])
   const handleLogourHandler = () => {
     dispatch(logoutUser);
     localStorage.clear();
